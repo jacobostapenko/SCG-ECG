@@ -3,7 +3,7 @@ import wfdb
 import numpy as np
 import h5py
 from scipy.signal import butter, filtfilt
-
+from data_process import visualize_signal
 
 
 data_dir = "/Users/jacobostapenko/Desktop/CEBSDB"
@@ -60,10 +60,11 @@ def process_record(record_path, out_dir=OUT_DIR):
     ecg = ecg[:min_len]
     scg = scg[:min_len]
     
-    
+
     ecg_filt = bandpass(ecg, ECG_BAND[0], ECG_BAND[1], fs)
+    visualize_signal(ecg_filt, fs)
     scg_filt = bandpass(scg, SCG_BAND[0], SCG_BAND[1], fs)
-    
+    visualize_signal(scg_filt, fs)
     # # Optional SCG preprocessing
     # scg_filt = scg_filt - np.mean(scg_filt)        # detrend
     # scg_filt = scg_filt / np.std(scg_filt)         # normalize
